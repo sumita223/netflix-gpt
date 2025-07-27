@@ -1,63 +1,47 @@
-# Netflix gpt
--Create react app
--configured tailwind css
--React router dom
--Header
--Login form
--Form valindation
--useRef hook
--Firebase setup
--Deploying our app to production
--Create SignUp User Account 
--Implement Sign In User Api
--Created Redux Store with userSlice
--Implemented Sign Out
--Update Profile
--bugfix- Sign up user displayName and profile picture update
--bugfix- if the user is not logged in redirect/browse to Login page and vice-versa.
--Unsubscribed to the onAuthStateChanged callback
--Add hardcoded values to the constant file
--Register TMDB & get access token
--Get data from Tmdb now playing movies list API
--Create movieSlice
--Update store with movies data
--Planning for MainContainer & secondary container
--Fetch data for Trailer Video
--Update store with trailer data
--Embeded the Youtube video and make it autoplay and mute
--Tailwind to make MainContainer look awesome
--Build secondary component
--Built the movieList
--Built movieCard
--TMDB image CDN URL
--Made the browse page amazing with Tailwind css
--usePopularMovies custom hook
+## Netflix GPT
+A Netflix-inspired movie streaming platform featuring secure Firebase authentication, real-time TMDB movie carousels, and GPT-powered natural language movie search using OpenAI. Built with React, Redux, Tailwind CSS, and deployed on Vercel.
 
--GPT Search Feature
--GPT Search Page
--GPT Search Bar
-(BONUS) Multi-language Feature in our App
-Get Open AI Api Key
-Gpt Search API Call
-fetched gptMoviesSuggestions from TMDB
-created gptSlice added data
-Resused Movie List component to make movie suggestion container
-Memoization
-Added .env file
-Adding .env file to gitignore
-Made our Site Responsive
+## Features
+- Authentication
+- Movie Browsing (powered by TMDB)
+- GPT Movie Search
+- GPT Integration search bar powered by OpenAI GPT-3.5/4
+- Fetches movie suggestions from TMDB based on GPT output
+- Multilingual Support (BONUS)
+  
+## Tech Stack
+Frontend: React, Tailwind CSS, React Router
+State Management: Redux Toolkit
+Authentication: Firebase Auth
+APIs: TMDB API, OpenAI API
+Deployment: Vercel
 
-# Features
--Login/Signup
-    -Sign In/ Sign UP form
-    -redirect to Browse Page
--Browse(after authentication)
-    -Header
-    -Main Movie
-        - Trailer In Background
-        - Title & Description
-        - Movie Suggestions
-            -MovieLists
--Netflix Gpt
-    -SearchBar
-    -Movie Suggestions
+##  Setup & Installation
+bash
+git clone https://github.com/your-username/netflix-gpt.git
+-cd netflix-gpt
+npm install
+
+-Add .env File
+env
+
+- REACT_APP_TMDB_API_KEY=your_tmdb_api_key
+- REACT_APP_OPENAI_API_KEY=your_openai_key
+
+# Add all Firebase config variables
+🚀 Start Dev Server
+bash
+
+npm start
+
+## Deployment
+Deployed on Vercel
+🔗 View Live Site
+https://netflix-gpt-6i8z.vercel.app/
+
+## Learnings
+- Working with Firebase Auth and secured routing
+- Handling async Redux state and API data
+- Prompt engineering with OpenAI
+- UI performance optimization using memo, useRef, lazy loading
+- Building reusable and scalable components
