@@ -19,62 +19,63 @@ const Login = () => {
     const password=useRef(null);
     const name =useRef(null);
 
-    const handleButtonClick = ()=>{
-  
-      const message= checkValidData(email.current.value, password.current.value);
-      setErrorMessage(message);
-      if(message) return;
+    // 
+    const handleButtonClick = () => {
+    const message = checkValidData(email.current.value, password.current.value)
+    setErrorMessage(message)
+    if (message) return
 
-      if(!isSignInForm){
-        //Sign UP
-        createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
-      .then((userCredential) => {
-        // User successfully signed up
-        
-        const user = userCredential.user;
-        console.log("User signed up successfully:", user);
+    if (!isSignInForm) {
+      //Sign UP
+      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          // User successfully signed up
 
-        // Update the user's profile
-        updateProfile(user, {
-          displayName: name.current.value,
-          photoURL: USER_AVATAR,
-        })
-        .then(() => {
-          const {uid, email,displayName , photoURL} = auth.currentUser;
-          dispatch(addUser({uid:uid, email:email, displayName: displayName, photoURL:photoURL})); 
-          
-          console.log("User profile updated successfully.");
+          const user = userCredential.user
+          console.log("User signed up successfully:", user)
+
+          // Update the user's profile
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: USER_AVATAR,
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser
+              dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }))
+
+              console.log("User profile updated successfully.")
+            })
+            .catch((error) => {
+              console.error("Error updating profile:", error)
+              setErrorMessage(`Profile Update Error: ${error.message}`)
+            })
         })
         .catch((error) => {
-          console.error("Error updating profile:", error);
-          setErrorMessage(`Profile Update Error: ${error.message}`);
-        });
-      })
-      .catch((error) => {
-        // Handle sign-up errors
-        console.error("Sign-up Error:", error);
-        setErrorMessage(`Sign-up Error: ${error.message}`);
-      });
-
-      }
-      else{
-        //sign in
-        signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+          // Handle sign-up errors
+          console.error("Sign-up Error:", error)
+          setErrorMessage(`Sign-up Error: ${error.message}`)
+        })
+    } else {
+      //sign in
+      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          console.log("User signed in successfully:", user);
-          
+          // Signed in
+          const user = userCredential.user
+          console.log("User signed in successfully:", user)
+
           // ...
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMessage("Sign-in Error:",errorCode +'-'+ errorMessage);
-        });
-
-      }
+          const errorCode = error.code
+          const errorMessage = error.message
+          if (errorCode === "auth/user-not-found" || errorCode === "auth/invalid-credential") {
+            setErrorMessage("New user, please sign up.")
+          } else {
+            setErrorMessage(`Sign-in Error: ${errorCode}-${errorMessage}`)
+          }
+        })
     }
+  }
 
     const toggleSignInForm = ()=>{
         setIsSignInForm(!isSignInForm);
@@ -83,12 +84,19 @@ const Login = () => {
   return (
     <div>
       <Header/>
-      <div className='absolute'>
-      <img src= {BG_URL}
+      {/* <div className='absolute'>
+      <img className= 'h-screen object-cover' src= {BG_URL}
       alt='logo'/>
-      </div>
+      </div> */}
+      <div className="fixed inset-0 z-[-1]">
+      <img
+        className="w-screen h-screen object-cover"
+        src={BG_URL}
+        alt="background"
+      />
+    </div>
      
-      <form onSubmit={(e)=>e.preventDefault()}className='w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-70'> 
+      <form onSubmit={(e)=>e.preventDefault()}className='w-med md: w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-70'> 
       <h1 className='font-bold text-3xl py-4'>{isSignInForm ? "Sign In" : "Sign Up"}</h1>
 
         {!isSignInForm &&<input ref={name}
